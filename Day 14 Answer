@@ -1,0 +1,50 @@
+QUESTION: Imagine you're developing a search engine or autocomplete feature that needs to find common patterns in users' search queries or typed phrases. To help refine search suggestions, you want a function that finds the longest common prefix among a list of strings. This prefix could hint at shared topics or categories that might help anticipate the user's needs.
+
+Problem Description:
+Write a function that accepts an array of strings and returns the longest prefix that all the strings have in common. If there's no common prefix, it should return an empty string ("").
+
+Example Scenarios:
+Example 1:
+
+Input: strs = ["flower", "flow", "flight"]
+Output: "fl"
+Explanation: The strings share the prefix "fl", which is the longest common starting sequence.
+Example 2:
+
+Input: strs = ["dog", "racecar", "car"]
+Output: ""
+Explanation: The strings have no letters in common at the beginning, so the result is an empty string.
+Constraints:
+The number of strings in strs is between 1 and 200.
+Each string has a length between 0 and 200 characters.
+All strings consist only of lowercase English letters.
+
+
+ANSWER:
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+std::string longestCommonPrefix(std::vector<std::string>& strs) {
+    if (strs.empty()) return "";
+
+    std::string prefix = strs[0];
+    
+    for (int i = 1; i < strs.size(); i++) {
+        int j = 0;
+        while (j < prefix.size() && j < strs[i].size() && prefix[j] == strs[i][j]) {
+            j++;
+        }
+        prefix = prefix.substr(0, j);
+        if (prefix.empty()) return "";
+    }
+    
+    return prefix;
+}
+
+int main() {
+    std::vector<std::string> strs = {"flower", "flow", "flight"};
+    std::cout << longestCommonPrefix(strs) << std::endl;
+    return 0;
+}
