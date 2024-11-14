@@ -1,0 +1,37 @@
+QUESTION: Imagine you're developing a system that helps people check if phrases, book titles, or any sequence of text are "mirrored," or palindromic—meaning they read the same forwards and backwards. This can be handy for apps that play with words or create patterns in text.
+
+Here's the challenge: Write a function that determines if a given phrase is a palindrome. This function should:
+
+Ignore all spaces, punctuation, and special characters.
+Treat uppercase and lowercase letters the same.
+So, if given any phrase, the function should return true if it's a palindrome and false otherwise.
+
+Example Scenarios:
+Example 1:
+
+Input: "A man, a plan, a canal: Panama"
+Output: true
+Explanation: If we remove spaces, punctuation, and convert everything to lowercase, the string becomes "amanaplanacanalpanama," which is the same forwards and backwards.
+Example 2:
+
+Input: "race a car"
+Output: false
+Explanation: After processing, the string becomes "raceacar," which is not the same forwards and backwards.
+
+
+ANSWER:
+
+#include <cctype>
+#include <string>
+
+bool isPalindrome(const std::string& phrase) {
+    std::string cleaned;
+    for (char ch : phrase) {
+        if (std::isalnum(ch)) cleaned += std::tolower(ch);
+    }
+    int left = 0, right = cleaned.size() - 1;
+    while (left < right) {
+        if (cleaned[left++] != cleaned[right--]) return false;
+    }
+    return true;
+}
