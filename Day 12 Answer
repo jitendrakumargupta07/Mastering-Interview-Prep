@@ -1,0 +1,59 @@
+QUESTION: Imagine you’re developing a system to help users check if two words or phrases are rearrangements of each other—useful for games, puzzles, or even detecting potential duplicates in word-based databases. An anagram is when two strings contain the same characters in the same frequency but in a different order.
+
+For this task, write a function that checks if two given strings are anagrams. If all letters in one string can be rearranged to form the other, the function should return true; otherwise, it should return false.
+
+Example Scenarios:
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Explanation: By rearranging the letters of "anagram," we can form "nagaram," so the two strings are anagrams.
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+Explanation: The letters in "rat" cannot be rearranged to form "car" since the two strings do not contain the same characters.
+Constraints:
+Each string will contain only lowercase English letters.
+The lengths of the strings s and t will be between 1 and 50,000 characters.
+
+
+ANSWER:
+
+#include <iostream>
+#include <string>
+#include <array>
+
+bool isAnagram(std::string s, std::string t) {
+    if (s.length() != t.length()) {
+        return false;
+    }
+
+    std::array<int, 26> count = {0};
+    
+    for (int i = 0; i < s.length(); i++) {
+        count[s[i] - 'a']++;
+        count[t[i] - 'a']--;
+    }
+
+    for (int i = 0; i < 26; i++) {
+        if (count[i] != 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    std::string s = "anagram";
+    std::string t = "nagaram";
+    
+    if (isAnagram(s, t)) {
+        std::cout << "The strings are anagrams." << std::endl;
+    } else {
+        std::cout << "The strings are not anagrams." << std::endl;
+    }
+
+    return 0;
+}
