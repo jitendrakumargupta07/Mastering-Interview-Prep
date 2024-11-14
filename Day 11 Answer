@@ -21,17 +21,32 @@ Explanation: After processing, the string becomes "raceacar," which is not the s
 
 ANSWER:
 
+#include <iostream>
 #include <cctype>
 #include <string>
+using namespace std;
 
-bool isPalindrome(const std::string& phrase) {
-    std::string cleaned;
-    for (char ch : phrase) {
-        if (std::isalnum(ch)) cleaned += std::tolower(ch);
+bool isPalindrome(string s) {
+    string filtered;
+    for (char c : s) {
+        if (isalnum(c)) {
+            filtered += tolower(c);
+        }
     }
-    int left = 0, right = cleaned.size() - 1;
+    int left = 0, right = filtered.size() - 1;
     while (left < right) {
-        if (cleaned[left++] != cleaned[right--]) return false;
+        if (filtered[left] != filtered[right]) {
+            return false;
+        }
+        left++;
+        right--;
     }
     return true;
 }
+
+int main() {
+    string s = "A man, a plan, a canal: Panama";
+    cout << isPalindrome(s) << endl;
+    return 0;
+}
+
